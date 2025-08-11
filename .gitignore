@@ -1,0 +1,19 @@
+# Root
+*.log
+.env
+.env.local
+.env.*.local
+
+# Dependencies & build
+node_modules/
+dist/
+coverage/
+
+# Monorepo sub-apps
+apps/*/node_modules/
+apps/web/.next/
+apps/web/out/
+apps/api/dist/
+
+# Prisma client build cache
+**/.prisma/
