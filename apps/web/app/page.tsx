@@ -2,7 +2,11 @@
 'use client';
 import { useState } from 'react';
 
-const API = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:4000';
+const API = process.env.NEXT_PUBLIC_API;
+console.log('API =', API);
+if (!API) {
+  throw new Error('NEXT_PUBLIC_API is missing. Check .env.local and restart dev server.');
+}
 
 export default function Home() {
   const [email, setEmail] = useState('');
