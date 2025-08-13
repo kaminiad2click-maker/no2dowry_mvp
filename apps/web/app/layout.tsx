@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import React from 'react';
-import './globals.css';
+import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
 
 export const metadata: Metadata = {
   title: 'no2dowry',
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-white text-slate-900">
-        {children}
+        <NavBar />
+        <main className="mx-auto max-w-5xl p-4">{children}</main>
+        <Footer />
       </body>
     </html>
   );
