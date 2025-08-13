@@ -1,27 +1,21 @@
-// apps/web/app/layout.tsx
 import type { Metadata } from 'next';
-import NavBar from '../components/NavBar';
-import Footer from '../components/Footer';
+import React from 'react';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'no2dowry',
   description: 'Matrimony without dowry',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <body>
-        <NavBar />
-        <main>{children}</main>
-        <Footer />
-
-        <style jsx global>{`
-          * { box-sizing: border-box; }
-          html, body { margin:0; padding:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial; color:#0f172a; background:#ffffff; }
-          main { min-height: 60vh; }
-          a { cursor: pointer; }
-        `}</style>
+      <body className="min-h-screen bg-white text-slate-900">
+        {children}
       </body>
     </html>
   );

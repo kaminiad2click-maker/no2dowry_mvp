@@ -1,56 +1,39 @@
-// apps/web/app/page.tsx
-import Hero from '../components/Hero';
-
-export default function HomePage() {
+cat > apps/web/app/page.tsx <<'EOF'
+export default function Home() {
   return (
-    <>
-      <Hero />
-
-      <section id="try" className="section">
-        <div className="wrap">
-          <h2>Try the demo</h2>
-          <p className="muted">
-            This page is your playground. Hook it up to your auth/profile calls next.
-          </p>
-
-          <div className="card">
-            <p>
-              API base URL:&nbsp;
-              <code>{process.env.NEXT_PUBLIC_API}</code>
-            </p>
-            <p style={{marginTop: 8}}>
-              Update <code>.env.local</code> if needed and redeploy.
-            </p>
-          </div>
+    <main>
+      <section className="w-full border-b bg-white">
+        <div className="mx-auto max-w-5xl flex items-center justify-between p-4">
+          <a href="/" className="font-semibold text-lg">no2dowry</a>
+          <nav className="flex items-center gap-4">
+            <a className="text-sm hover:underline" href="/">Home</a>
+            <a className="text-sm hover:underline" href="/api">API</a>
+          </nav>
         </div>
       </section>
 
-      <style jsx>{`
-        .section {
-          padding: 40px 20px 64px;
-          background: #fff;
-        }
-        .wrap {
-          margin: 0 auto;
-          max-width: 1100px;
-        }
-        h2 { margin: 0 0 8px; font-size: 28px; }
-        .muted { color:#475569; margin:0 0 18px; }
-        .card {
-          border: 1px solid #e5e7eb;
-          border-radius: 12px;
-          padding: 16px;
-          background: #f9fafb;
-        }
-        code {
-          background:#eef2ff;
-          color:#222;
-          padding: 2px 6px;
-          border-radius: 6px;
-          font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
-          font-size: 90%;
-        }
-      `}</style>
-    </>
+      <section className="mx-auto max-w-5xl px-4 py-16">
+        <h1 className="text-3xl font-bold mb-3">It works 🎉</h1>
+        <p className="text-slate-700">
+          Frontend is up with App Router (Next.js). Edit <code>apps/web/app/page.tsx</code> to build your UI.
+        </p>
+        <ul className="list-disc pl-6 mt-4 text-sm text-slate-600">
+          <li>
+            API base URL (from <code>.env.local</code>): {process.env.NEXT_PUBLIC_API}
+          </li>
+        </ul>
+      </section>
+
+      <footer className="w-full border-t bg-white">
+        <div className="mx-auto max-w-5xl p-4 text-xs text-slate-500">
+          © {new Date().getFullYear()} no2dowry — MVP
+        </div>
+      </footer>
+    </main>
   );
 }
+EOF
+
+cd apps/web
+npm run build
+cd ../..
