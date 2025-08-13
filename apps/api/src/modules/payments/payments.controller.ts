@@ -4,7 +4,7 @@ import { Body, Controller, Post, Req } from '@nestjs/common';
 export class PaymentsController {
   // 👇 this is the route your frontend is calling
   @Post('create-order')
-  createOrder(@Req req: any) {
+  createOrder(@Req() req: any) {
     // Return a stubbed order for ₹199
     return {
       orderId: 'order_test_123',
