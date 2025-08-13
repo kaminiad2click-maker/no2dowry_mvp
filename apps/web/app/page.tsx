@@ -1,4 +1,3 @@
-cat > apps/web/app/page.tsx <<'EOF'
 export default function Home() {
   return (
     <main>
@@ -18,9 +17,7 @@ export default function Home() {
           Frontend is up with App Router (Next.js). Edit <code>apps/web/app/page.tsx</code> to build your UI.
         </p>
         <ul className="list-disc pl-6 mt-4 text-sm text-slate-600">
-          <li>
-            API base URL (from <code>.env.local</code>): {process.env.NEXT_PUBLIC_API}
-          </li>
+          <li>API base URL (from <code>.env.local</code>): {process.env.NEXT_PUBLIC_API}</li>
         </ul>
       </section>
 
@@ -32,8 +29,3 @@ export default function Home() {
     </main>
   );
 }
-EOF
-
-cd apps/web
-npm run build
-cd ../..
