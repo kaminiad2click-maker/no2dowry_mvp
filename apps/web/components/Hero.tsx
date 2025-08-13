@@ -1,30 +1,19 @@
+import Link from 'next/link';
+
 export default function Hero() {
   return (
-    <section className="relative">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-blush-50 via-paper to-paper" />
-      <div className="container py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
-        <div>
-          <h1 className="font-display text-4xl md:text-6xl font-extrabold tracking-tight">
-            Find your <span className="text-rose-600">forever</span>
-          </h1>
-          <p className="mt-4 text-lg text-midnight-700">
-            Discover meaningful matches—without dowry. Modern filters, genuine profiles, and a safe experience.
-          </p>
-          <div className="mt-8 flex gap-3">
-            <a href="#auth" className="btn-primary">Find Your Match</a>
-            <a href="#features" className="btn-outline">How it works</a>
-          </div>
-          <div className="mt-6 text-sm text-midnight-600">
-            ★★★★★ Trusted by thousands of users
-          </div>
-        </div>
-
-        <div className="card p-2 overflow-hidden">
-          <img
-            src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1400&auto=format&fit=crop"
-            alt="Couple"
-            className="h-[360px] w-full object-cover rounded-2xl"
-          />
+    <section className="relative isolate overflow-hidden">
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60rem_40rem_at_70%_-10%,#f0abfc_10%,transparent),radial-gradient(50rem_30rem_at_0%_30%,#fecdd3_10%,transparent)]" />
+      <div className="mx-auto max-w-6xl px-4 py-20 text-center">
+        <h1 className="mx-auto max-w-3xl text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+          Find your <span className="bg-gradient-to-r from-rose-600 via-fuchsia-600 to-indigo-600 bg-clip-text text-transparent">forever</span> ❤️
+        </h1>
+        <p className="mx-auto mt-4 max-w-2xl text-slate-600">
+          Modern matchmaking without dowry — simple, respectful, and built for meaningful connections.
+        </p>
+        <div className="mt-8 flex items-center justify-center gap-3">
+          <Link href="/auth" className="rounded-xl bg-rose-600 px-5 py-3 text-white shadow-lg shadow-rose-600/20 hover:bg-rose-500">Create your profile</Link>
+          <Link href="/auth" className="rounded-xl border px-5 py-3 text-slate-700 hover:border-fuchsia-300 hover:text-fuchsia-600">I already have an account</Link>
         </div>
       </div>
     </section>
