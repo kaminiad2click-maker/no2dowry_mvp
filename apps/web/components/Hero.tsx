@@ -1,19 +1,24 @@
-import Link from 'next/link';
-
 export default function Hero() {
   return (
-    <section className="relative isolate overflow-hidden">
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60rem_40rem_at_70%_-10%,#f0abfc_10%,transparent),radial-gradient(50rem_30rem_at_0%_30%,#fecdd3_10%,transparent)]" />
-      <div className="mx-auto max-w-6xl px-4 py-20 text-center">
-        <h1 className="mx-auto max-w-3xl text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
-          Find your <span className="bg-gradient-to-r from-rose-600 via-fuchsia-600 to-indigo-600 bg-clip-text text-transparent">forever</span> ❤️
+    <section className="relative">
+      {/* soft top gradient */}
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(60%_60%_at_50%_-10%,rgba(244,63,94,0.20),transparent_60%)]" />
+      <div className="container-max py-16 md:py-24 text-center">
+        <span className="inline-flex items-center gap-2 rounded-full border border-pink-200 bg-pink-50 px-3 py-1 text-xs font-medium text-brand-700">
+          modern • respectful • no dowry
+        </span>
+
+        <h1 className="mt-6 text-4xl md:text-6xl font-display">
+          Find your forever <span className="text-brand-600">♥</span>
         </h1>
+
         <p className="mx-auto mt-4 max-w-2xl text-slate-600">
           Modern matchmaking without dowry — simple, respectful, and built for meaningful connections.
         </p>
+
         <div className="mt-8 flex items-center justify-center gap-3">
-          <Link href="/auth" className="rounded-xl bg-rose-600 px-5 py-3 text-white shadow-lg shadow-rose-600/20 hover:bg-rose-500">Create your profile</Link>
-          <Link href="/auth" className="rounded-xl border px-5 py-3 text-slate-700 hover:border-fuchsia-300 hover:text-fuchsia-600">I already have an account</Link>
+          <a href="/auth" className="btn btn-primary">Create your profile</a>
+          <a href="/auth" className="btn btn-ghost">I already have an account</a>
         </div>
       </div>
     </section>

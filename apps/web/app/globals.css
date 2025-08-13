@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Optional – a tiny reset to make things crisper */
-html,body { height: 100%; }
-body { color: #0f172a; background: #fff; }
+/* Google fonts (simple & reliable for now) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+@layer base {
+  html, body { height: 100%; }
+  body { @apply bg-white text-slate-900 font-sans antialiased; }
+  h1, h2, h3 { @apply font-display tracking-tight; }
+  a { @apply text-brand-600 hover:text-brand-700; }
+  .container-max { @apply mx-auto max-w-6xl px-4; }
+  .btn {
+    @apply inline-flex items-center justify-center rounded-xl px-5 py-3 font-medium transition;
+  }
+  .btn-primary {
+    @apply bg-brand-600 text-white hover:bg-brand-700 shadow-md hover:shadow-lg;
+  }
+  .btn-ghost {
+    @apply border border-slate-200 hover:bg-slate-50;
+  }
+  .card {
+    @apply rounded-2xl bg-white/80 backdrop-blur border border-slate-100 shadow-card;
+  }
+}
