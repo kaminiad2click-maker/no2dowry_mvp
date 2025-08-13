@@ -1,31 +1,79 @@
-export default function Home() {
+'use client';
+
+import React, { useState } from 'react';
+
+const API = process.env.NEXT_PUBLIC_API ?? '';
+
+export default function AuthPage() {
+  const [email, setEmail] = useState('test123@gmail.com');
+  const [password, setPassword] = useState('password');
+  const [msg, setMsg] = useState('');
+  const [token, setToken] = useState<string | null>(null);
+
+  async function call(path: string, body: any) {
+    setMsg(''); 
+    try {
+      const res = await fetch(`${API}/${path}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok) {
+        setMsg(JSON.stringify(data, null, 2));
+        if (data?.token) setToken(data.token);
+      } else {
+        setMsg(data?.message || 'Request failed');
+      }
+    } catch (e: any) {
+      setMsg(e?.message || 'Network error');
+    }
+  }
+
   return (
-    <main>
-      <section className="w-full border-b bg-white">
-        <div className="mx-auto max-w-5xl flex items-center justify-between p-4">
-          <a href="/" className="font-semibold text-lg">no2dowry</a>
-          <nav className="flex items-center gap-4">
-            <a className="text-sm hover:underline" href="/">Home</a>
-            <a className="text-sm hover:underline" href="/api">API</a>
-          </nav>
-        </div>
-      </section>
+    <main className="mx-auto max-w-2xl p-6 space-y-4">
+      <h1 className="text-2xl font-semibold">Auth</h1>
 
-      <section className="mx-auto max-w-5xl px-4 py-16">
-        <h1 className="text-3xl font-bold mb-3">It works 🎉</h1>
-        <p className="text-slate-700">
-          Frontend is up with App Router (Next.js). Edit <code>apps/web/app/page.tsx</code> to build your UI.
-        </p>
-        <ul className="list-disc pl-6 mt-4 text-sm text-slate-600">
-          <li>API base URL (from <code>.env.local</code>): {process.env.NEXT_PUBLIC_API}</li>
-        </ul>
-      </section>
+      <div className="grid gap-2">
+        <label className="text-sm">Email</label>
+        <input
+          className="border rounded px-3 py-2"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <label className="text-sm">Password</label>
+        <input
+          type="password"
+          className="border rounded px-3 py-2"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
 
-      <footer className="w-full border-t bg-white">
-        <div className="mx-auto max-w-5xl p-4 text-xs text-slate-500">
-          © {new Date().getFullYear()} no2dowry — MVP
+      <div className="flex gap-3">
+        <button
+          onClick={() => call('auth/signup', { email, password })}
+          className="rounded bg-black text-white px-4 py-2"
+        >
+          Sign Up
+        </button>
+        <button
+          onClick={() => call('auth/login', { email, password })}
+          className="rounded border px-4 py-2"
+        >
+          Log In
+        </button>
+      </div>
+
+      {token && (
+        <div className="text-xs break-all p-2 bg-slate-50 border rounded">
+          JWT: {token}
         </div>
-      </footer>
+      )}
+
+      <pre className="text-sm p-3 bg-slate-50 border rounded overflow-auto">
+{msg || '—'}
+      </pre>
     </main>
   );
 }
