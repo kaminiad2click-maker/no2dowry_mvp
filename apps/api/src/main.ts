@@ -7,12 +7,12 @@ async function bootstrap() {
 
   app.enableCors({
     origin: [
-      'http://localhost:3000',
-      'https://no2dowry-mvp.vercel.app',   // <-- your Vercel frontend
+      'https://no2dowry-mvp.vercel.app', // Vercel frontend
+      'http://localhost:3000',           // local dev (optional)
     ],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
+    credentials: false,
   });
 
   await app.listen(process.env.PORT || 3000);
