@@ -1,25 +1,18 @@
-import "./globals.css";
 import type { Metadata } from 'next';
-import React from 'react';
-import NavBar from '../components/NavBar';
-import Footer from '../components/Footer';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'no2dowry',
+  title: 'no2dowry — MVP',
   description: 'Matrimony without dowry',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-white text-slate-900">
-        <NavBar />
-        <main className="mx-auto max-w-5xl p-4">{children}</main>
-        <Footer />
+      <body className="min-h-screen bg-white text-slate-900 antialiased">
+        <div className="min-h-screen flex flex-col">
+          {children}
+        </div>
       </body>
     </html>
   );

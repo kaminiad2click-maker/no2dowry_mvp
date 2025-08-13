@@ -1,25 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: light;
-}
-
-html, body {
-  @apply bg-paper text-ink antialiased;
-}
-
-a { @apply text-midnight-600 hover:text-midnight-800 transition; }
-
-.btn-primary {
-  @apply inline-flex items-center justify-center rounded-full bg-rose-500 px-6 py-3 text-white font-medium shadow-soft hover:bg-rose-600 active:scale-[.99] transition;
-}
-.btn-outline {
-  @apply inline-flex items-center justify-center rounded-full border border-midnight-200 px-6 py-3 text-ink hover:bg-midnight-50 transition;
-}
-.card {
-  @apply rounded-2xl bg-paper shadow-soft border border-midnight/5;
-}
+/* Optional nicer defaults */
+html, body { height: 100%; }
+body { @apply bg-white text-slate-900; }
+a { @apply text-slate-800 hover:text-rose-600 transition; }
