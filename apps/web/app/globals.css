@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Optional nicer defaults */
-html, body { height: 100%; }
-body { @apply bg-white text-slate-900; }
-a { @apply text-slate-800 hover:text-rose-600 transition; }
+/* Optional – a tiny reset to make things crisper */
+html,body { height: 100%; }
+body { color: #0f172a; background: #fff; }
