@@ -1,8 +1,11 @@
-import { Module } from 'nestjs/common';
+import { Module } from '@nestjs/common';
 import { AuthModule } from './modules/auth/auth.module';
-// import { PaymentsModule } from './modules/payments/payments.module';  // keep commented for now
+// import { PaymentsModule } from './modules/payments/payments.module'; // ⛔ TEMP disable
 
 @Module({
-  imports: [AuthModule],
+  imports: [
+    AuthModule,
+    // PaymentsModule, // ⛔ TEMP disable
+  ],
 })
 export class AppModule {}

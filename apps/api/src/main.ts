@@ -6,8 +6,8 @@ async function bootstrap() {
 
   app.enableCors({
     origin: [
-      'https://no2dowry-nkssgfu2m-kaminis-projects-9c5497ef.vercel.app', // your Vercel URL
-      'http://localhost:3000', // dev
+      'https://no2dowry-nkssgfu2m-kaminis-projects-9c5497ef.vercel.app',
+      'http://localhost:3000',
     ],
     methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
     allowedHeaders: ['Content-Type','Authorization'],
