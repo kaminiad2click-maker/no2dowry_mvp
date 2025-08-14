@@ -2,25 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Google fonts (simple & reliable for now) */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
-
+/* Base layer */
 @layer base {
-  html, body { height: 100%; }
-  body { @apply bg-white text-slate-900 font-sans antialiased; }
-  h1, h2, h3 { @apply font-display tracking-tight; }
-  a { @apply text-brand-600 hover:text-brand-700; }
-  .container-max { @apply mx-auto max-w-6xl px-4; }
-  .btn {
-    @apply inline-flex items-center justify-center rounded-xl px-5 py-3 font-medium transition;
+  html, body {
+    @apply bg-white text-ink-900 antialiased;
+    font-feature-settings: "cv02","cv03","cv04","cv11";
   }
-  .btn-primary {
-    @apply bg-brand-600 text-white hover:bg-brand-700 shadow-md hover:shadow-lg;
-  }
-  .btn-ghost {
-    @apply border border-slate-200 hover:bg-slate-50;
-  }
-  .card {
-    @apply rounded-2xl bg-white/80 backdrop-blur border border-slate-100 shadow-card;
-  }
+  a { @apply text-brand-600 hover:text-brand-500 underline-offset-2; }
+}
+
+/* Simple prose helpers */
+.prose-title {
+  @apply text-4xl md:text-5xl font-bold tracking-tight;
+}
+.prose-subtle {
+  @apply text-ink-500;
+}
+.section {
+  @apply max-w-6xl mx-auto px-4 md:px-6;
+}
+.card {
+  @apply rounded-2xl border border-slate-200/60 bg-white/80 backdrop-blur p-6 shadow-sm;
+}
+.btn-primary {
+  @apply inline-flex items-center gap-2 rounded-full bg-brand-600 px-6 py-3 text-white font-medium hover:bg-brand-500 transition;
+}
+.btn-outline {
+  @apply inline-flex items-center gap-2 rounded-full border px-6 py-3 text-ink-900 hover:bg-slate-50 transition;
 }
