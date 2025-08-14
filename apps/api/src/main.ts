@@ -1,4 +1,3 @@
-// apps/api/src/main.ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
@@ -7,14 +6,14 @@ async function bootstrap() {
 
   app.enableCors({
     origin: [
-      'https://no2dowry-mvp.vercel.app', // Vercel frontend
-      'http://localhost:3000',           // local dev (optional)
+      'https://no2dowry-nkssgfu2m-kaminis-projects-9c5497ef.vercel.app', // your Vercel URL
+      'http://localhost:3000', // dev
     ],
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: false,
+    methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
+    allowedHeaders: ['Content-Type','Authorization'],
+    credentials: true,
   });
 
-  await app.listen(process.env.PORT || 3000);
+  await app.listen(process.env.PORT || 4000);
 }
 bootstrap();

@@ -1,11 +1,8 @@
-import { Module } from '@nestjs/common';
-import { PaymentsModule } from './modules/payments/payments.module';
-// ... other imports
+import { Module } from 'nestjs/common';
+import { AuthModule } from './modules/auth/auth.module';
+// import { PaymentsModule } from './modules/payments/payments.module';  // keep commented for now
 
 @Module({
-  imports: [
-    // other modules here...
-    PaymentsModule,
-  ],
+  imports: [AuthModule],
 })
 export class AppModule {}
