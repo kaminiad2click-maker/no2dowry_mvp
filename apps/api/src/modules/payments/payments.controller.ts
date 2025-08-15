@@ -1,7 +1,16 @@
-// WRONG:  createOrder(@Req req: any)
-// RIGHT:
-import { Req } from '@nestjs/common';
+import { Controller, Post, Req, Body } from '@nestjs/common';
 
-createOrder(@Req() req: any) {
-  // ...
+@Controller('payments')
+export class PaymentsController {
+  @Post('create-order')
+  createOrder(@Req() req: any) {
+    // Stubbed response for now to unblock build
+    return { ok: true, stub: 'create-order' };
+  }
+
+  @Post('complete-order')
+  completeOrder(@Body() body: any) {
+    // Stubbed response for now to unblock build
+    return { ok: true, stub: 'complete-order', received: body };
+  }
 }
