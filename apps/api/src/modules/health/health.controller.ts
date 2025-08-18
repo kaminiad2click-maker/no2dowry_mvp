@@ -6,22 +6,17 @@ export class HealthController {
   constructor(private readonly prisma: PrismaService) {}
 
   @Get()
-  ok() {
+  getStatus() {
     return { status: 'OK' };
   }
 
   @Get('db')
-  async db() {
+  async getDbStatus() {
     try {
-      const count = await this.prisma.user.count();
-      return { ok: true, userCount: count };
-    } catch (err: any) {
-      return {
-        ok: false,
-        name: err?.name,
-        code: err?.code,
-        message: err?.message,
-      };
+      await this.prisma.$queryRaw`SELECT 1`;
+      return { status: 'DB OK' };
+    } catch (e) {
+      return { status: 'DB ERROR', error: e.message };
     }
   }
 }
