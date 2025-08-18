@@ -10,14 +10,12 @@ export class HealthController {
     return { status: 'OK' };
   }
 
-  // NEW: check DB connectivity and basic query
   @Get('db')
   async db() {
     try {
       const count = await this.prisma.user.count();
       return { ok: true, userCount: count };
     } catch (err: any) {
-      // surface the error message so we can see what's wrong
       return {
         ok: false,
         name: err?.name,

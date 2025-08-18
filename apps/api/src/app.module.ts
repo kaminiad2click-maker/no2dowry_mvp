@@ -1,11 +1,16 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AuthModule } from './modules/auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { HealthModule } from './modules/health/health.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { ProfileModule } from './modules/profile/profile.module';
+// If payments is unstable you can remove its module import for now
 
 @Module({
-  imports: [PrismaModule, AuthModule],
-  controllers: [AppController],
-  providers: [],
+  imports: [
+    PrismaModule,
+    HealthModule,
+    AuthModule,
+    ProfileModule,
+  ],
 })
 export class AppModule {}
