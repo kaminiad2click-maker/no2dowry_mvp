@@ -14,9 +14,10 @@ export class HealthController {
   async getDbStatus() {
     try {
       await this.prisma.$queryRaw`SELECT 1`;
-      return { status: 'DB OK' };
-    } catch (e) {
-      return { status: 'DB ERROR', error: e.message };
+      const userCount = await this.prisma.user.count().catch(() => 0);
+      return { ok: true, status: 'DB OK', userCount };
+    } catch (e: any) {
+      return { ok: false, status: 'DB ERROR', error: e?.message ?? String(e) };
     }
   }
 }
