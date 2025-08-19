@@ -1,35 +1,54 @@
-export const API = process.env.NEXT_PUBLIC_API || "";
+// apps/web/lib/api.ts
+export const API_BASE =
+  process.env.NEXT_PUBLIC_API ||
+  process.env.NEXT_PUBLIC_API_URL ||
+  '';
 
-function join(base: string, path: string) {
-  if (!base) return path; // allows local dev without API
-  const a = base.endsWith("/") ? base.slice(0, -1) : base;
-  const p = path.startsWith("/") ? path : `/${path}`;
-  return a + p;
-}
+type Options = RequestInit & {
+  token?: string | null;
+  body?: any; // will auto-JSON if it's a plain object
+};
 
-export async function api(
+export async function apiRequest<T = any>(
   path: string,
-  options: RequestInit = {}
-): Promise<any> {
-  const url = join(API, path);
-  const headers = {
-    "Content-Type": "application/json",
-    ...(options.headers || {}),
+  options: Options = {}
+): Promise<T> {
+  if (!API_BASE) {
+    throw new Error(
+      'NEXT_PUBLIC_API (or NEXT_PUBLIC_API_URL) is missing. Set it in Vercel Environment Variables.'
+    );
+  }
+
+  const { token, body, headers, ...rest } = options;
+
+  const finalHeaders: Record<string, string> = {
+    'Content-Type': 'application/json',
+    ...(headers as Record<string, string>),
   };
+  if (token) finalHeaders['Authorization'] = `Bearer ${token}`;
 
-  const res = await fetch(url, { ...options, headers });
+  const res = await fetch(`${API_BASE.replace(/\/+$/, '')}/${path.replace(/^\/+/, '')}`, {
+    method: body ? 'POST' : 'GET',
+    body: body && typeof body === 'object' ? JSON.stringify(body) : (body as any),
+    headers: finalHeaders,
+    ...rest,
+  });
 
-  let data: any = null;
-  try { data = await res.json(); } catch {}
+  // Try to parse JSON; if not JSON, throw text
+  const text = await res.text();
+  let data: any;
+  try {
+    data = text ? JSON.parse(text) : null;
+  } catch {
+    // non-JSON
+    if (!res.ok) throw new Error(text || `HTTP ${res.status}`);
+    return text as unknown as T;
+  }
 
   if (!res.ok) {
-    const msg = (data && (data.message || data.error)) || `Request failed ${res.status}`;
+    const msg = data?.message || data?.error || `HTTP ${res.status}`;
     throw new Error(msg);
   }
-  return data;
+
+  return data as T;
 }
-
-export const post = (path: string, body: any) =>
-  api(path, { method: "POST", body: JSON.stringify(body) });
-
-export const get = (path: string) => api(path, { method: "GET" });
