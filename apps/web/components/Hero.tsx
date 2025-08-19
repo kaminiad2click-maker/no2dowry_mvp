@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -14,19 +15,21 @@ export default function Hero() {
         <p className="mx-auto mt-4 max-w-2xl text-center text-slate-600">
           Build meaningful connections—simple, respectful, and built for compatibility.
         </p>
+
+        {/* CTA Buttons */}
         <div className="mt-8 flex justify-center gap-4">
-          <a
-            href="/auth"
+          <Link
+            href="/signup"
             className="rounded-full bg-rose-500 px-6 py-3 text-white shadow-sm hover:bg-rose-600"
           >
             Create your profile
-          </a>
-          <a
-            href="/auth"
+          </Link>
+          <Link
+            href="/login"
             className="rounded-full border px-6 py-3 hover:bg-slate-50"
           >
             I already have an account
-          </a>
+          </Link>
         </div>
       </div>
     </section>
