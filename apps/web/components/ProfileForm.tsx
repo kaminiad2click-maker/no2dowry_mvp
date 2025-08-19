@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ProfileAPI, decodeJwtSub, type Profile } from '@/lib/api';
+import { apiRequest } from "../lib/api";
 
 type Props = { initialToken?: string | null };
 
