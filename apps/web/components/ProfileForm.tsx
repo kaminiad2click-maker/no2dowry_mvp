@@ -3,7 +3,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { apiRequest } from "../lib/api";
-
 type Props = { initialToken?: string | null };
 
 const INTERESTS = ['Travel', 'Music', 'Reading', 'Fitness', 'Cooking', 'Movies', 'Art', 'Tech'];
