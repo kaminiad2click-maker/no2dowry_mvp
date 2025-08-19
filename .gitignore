@@ -17,3 +17,14 @@ apps/api/dist/
 
 # Prisma client build cache
 **/.prisma/
+
+# Ignore junk
+Build/
+Checking/
+Cloning/
+Common/
+Docs/
+Downloading/
+Running/
+Transferred/
+next/
