@@ -1,66 +1,35 @@
-// apps/web/lib/api.ts
-export const API_BASE =
-  process.env.NEXT_PUBLIC_API?.replace(/\/+$/,'') ?? '';
+export const API = process.env.NEXT_PUBLIC_API || "";
 
-export type Profile = {
-  id?: string;
-  userId?: string;
-  name?: string;
-  dob?: string; // ISO
-  location?: string;
-  education?: string;
-  bio?: string;
-  preferences?: {
-    minAge?: number;
-    maxAge?: number;
-    religion?: string;
-    preferredLocation?: string;
-    preferredEducation?: string;
-    interests?: string[];
-  }
-};
-
-export function decodeJwtSub(token: string | null): string | null {
-  if (!token) return null;
-  try {
-    const payload = JSON.parse(
-      Buffer.from(token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'), 'base64').toString('utf8')
-    );
-    return payload?.sub ?? null;
-  } catch {
-    return null;
-  }
+function join(base: string, path: string) {
+  if (!base) return path; // allows local dev without API
+  const a = base.endsWith("/") ? base.slice(0, -1) : base;
+  const p = path.startsWith("/") ? path : `/${path}`;
+  return a + p;
 }
 
-async function api<T>(
+export async function api(
   path: string,
-  options: RequestInit = {},
-  token?: string | null
-): Promise<T> {
-  if (!API_BASE) throw new Error("NEXT_PUBLIC_API not set");
-  const url = `${API_BASE}/${path.replace(/^\/+/, '')}`;
-  const headers: Record<string,string> = {
-    'Content-Type': 'application/json',
-    ...(options.headers as Record<string,string> || {}),
+  options: RequestInit = {}
+): Promise<any> {
+  const url = join(API, path);
+  const headers = {
+    "Content-Type": "application/json",
+    ...(options.headers || {}),
   };
-  if (token) headers['Authorization'] = `Bearer ${token}`;
-  const res = await fetch(url, { ...options, headers, cache: 'no-store' });
+
+  const res = await fetch(url, { ...options, headers });
+
+  let data: any = null;
+  try { data = await res.json(); } catch {}
+
   if (!res.ok) {
-    let detail: any = null;
-    try { detail = await res.json(); } catch {}
-    throw new Error(detail?.message || `HTTP ${res.status}`);
+    const msg = (data && (data.message || data.error)) || `Request failed ${res.status}`;
+    throw new Error(msg);
   }
-  return res.json() as Promise<T>;
+  return data;
 }
 
-export const ProfileAPI = {
-  get(userId: string, token?: string | null) {
-    return api<Profile>(`profile/${userId}`, { method: 'GET' }, token);
-  },
-  upsert(userId: string, profile: Profile, token?: string | null) {
-    return api<Profile>(`profile/${userId}`, {
-      method: 'POST',
-      body: JSON.stringify(profile),
-    }, token);
-  }
-};
+export const post = (path: string, body: any) =>
+  api(path, { method: "POST", body: JSON.stringify(body) });
+
+export const get = (path: string) => api(path, { method: "GET" });
