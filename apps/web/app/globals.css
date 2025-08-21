@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* You can put your site-wide styles below */
-:root {
-  --bg: #ffffff;
-  --fg: #0f172a;
-}
-html, body {
-  height: 100%;
+body {
+  font-family: sans-serif;
 }
