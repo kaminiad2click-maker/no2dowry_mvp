@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
-export default function Navbar() {
+export default function NavBar() {
   const { data: session } = useSession();
 
   return (
