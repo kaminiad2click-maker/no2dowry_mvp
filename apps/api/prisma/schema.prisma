@@ -1,19 +1,28 @@
-// apps/api/prisma/schema.prisma
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
 
 generator client {
   provider = "prisma-client-js"
 }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
+  id        Int     @id @default(autoincrement())
+  email     String  @unique
   password  String
   name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  age       Int?
+  city      String?
+  matches   Match[]
+}
+
+model Match {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  user      User    @relation(fields: [userId], references: [id])
+  name      String
+  age       Int
+  city      String
+  about     String?
 }
