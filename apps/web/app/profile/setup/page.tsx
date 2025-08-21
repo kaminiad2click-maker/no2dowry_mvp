@@ -23,14 +23,25 @@ export default function ProfileSetupPage() {
   });
   const [photos, setPhotos] = useState<FileList | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSubmitting(true);
+    setError(null);
     try {
-      // TODO: replace with your API endpoint or server action
-      await new Promise((r) => setTimeout(r, 600));
+      const resp = await fetch("/api/profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...profile,
+          photos: photos ? Array.from(photos).map(f => ({ name: f.name, size: f.size, type: f.type })) : []
+        }),
+      });
+      if (!resp.ok) throw new Error("Failed to save profile");
       router.push("/dashboard");
+    } catch (err: any) {
+      setError(err.message || "Something went wrong");
     } finally {
       setSubmitting(false);
     }
@@ -122,6 +133,8 @@ export default function ProfileSetupPage() {
             className="w-full"
           />
         </div>
+
+        {error && <p className="text-red-600 text-sm">{error}</p>}
 
         <button
           type="submit"
