@@ -1,27 +1,40 @@
 import Link from "next/link";
 import { getServerSession } from "next-auth";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
+import { authOptions } from "./api/auth/[...nextauth]/route";
 
 export default async function HomePage() {
-  const session = await getServerSession();
-  if (session) {
-    const cookieStore = cookies();
-    const done = cookieStore.get("profileCompleted")?.value === "true";
-    if (!done) {
-      redirect("/profile/setup");
-    } else {
-      redirect("/dashboard");
-    }
+  let session = null;
+  try {
+    session = await getServerSession(authOptions);
+  } catch {
+    // If authOptions misconfigured, fail gracefully to landing
+    session = null;
   }
 
+  if (session) {
+    const done = cookies().get("profileCompleted")?.value === "true";
+    redirect(done ? "/dashboard" : "/profile/setup");
+  }
+
+  // Guest landing
   return (
-    <main className="max-w-3xl mx-auto p-8 text-center">
-      <h1 className="text-3xl font-bold">No2Dowry</h1>
-      <p className="text-gray-600 mt-2">Find your match with values that matter.</p>
+    <main className="text-center py-16">
+      <h2 className="uppercase tracking-widest text-sm mb-2">
+        MODERN • RESPECTFUL • NO DOWRY
+      </h2>
+      <h1 className="text-4xl font-bold">Find your forever ❤️</h1>
+      <p className="text-slate-600 mt-2">
+        Build meaningful connections—simple, respectful, and built for compatibility.
+      </p>
       <div className="mt-6 flex gap-4 justify-center">
-        <Link className="px-4 py-2 rounded bg-rose-500 text-white" href="/signup">Sign up</Link>
-        <Link className="px-4 py-2 rounded border" href="/login">Log in</Link>
+        <Link className="px-5 py-2 rounded bg-rose-500 text-white" href="/signup">
+          Create your profile
+        </Link>
+        <Link className="px-5 py-2 rounded border" href="/login">
+          I already have an account
+        </Link>
       </div>
     </main>
   );
